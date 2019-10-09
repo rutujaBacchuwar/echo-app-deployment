@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - role: geerlingguy.nodejs
+      vars:
+        nodejs_version: 12.x
+        nodejs_npm_global_packages:
+          - name: forever
+            version: 1.0.0
+  tasks:
+    - name: Install git
+      package:
+        name: git
+        state: present
+    - name: Clone echo-app repository
+      git:
+        repo: https://github.com/rutujaBacchuwar/EchoNodeApp.git
+        dest: /opt/echo-app
+    - name: Install echo-app dependencies
+      npm:
+        path: /opt/echo-app
+    - name: Forever list
+      command: /usr/local/lib/npm/bin/forever list
+      register: forever_list
+      changed_when: false
+    - name: Start echo-app
+      command: /usr/local/lib/npm/bin/forever start server.js
+      args:
+        chdir: /opt/echo-app
+      when: forever_list.stdout.find('server.js') == -1

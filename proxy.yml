@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - role: geerlingguy.nginx
+      vars:
+        nginx_vhosts:
+          - listen: 80
+            server_name: jenkins-192-168-99-21.nip.io
+            extra_parameters: |
+              location ~ / {
+                proxy_pass http://192.168.99.22:8080;
+              }
+          - listen: 80
+            server_name: echo-192-168-99-21.nip.io
+            extra_parameters: |
+              location ~ / {
+                proxy_pass http://192.168.99.23:3000;
+              }

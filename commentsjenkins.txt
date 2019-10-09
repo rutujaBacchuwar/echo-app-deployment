@@ -1,0 +1,7 @@
+To install jenkins role run the command:
+
+ ansible-galaxy install -r roles.yml -p roles
+
+Wildcard Domain name:
+nip.io
+

@@ -1,0 +1,9 @@
+Echo VM Steps:
+
+1. run "virtualbox" command on terminal
+2. vagrant up echo
+3. If you change anything in file then run "vagrant provision echo" command
+ To check everything is working fine  use http://192.168.99.23:3000/echo/rutu on browser
+4. logout
+
+Node application link: https://github.com/rutujaBacchuwar/EchoNodeApp
